@@ -15,7 +15,7 @@ export class WatchDetails extends Component {
     const { id } = this.props.match.params;
 
     axios
-      .get(`http://localhost:6677/api/watches/${id}`, {
+      .get(` https://watchful-rm-api.herokuapp.com/api/watches/${id}`, {
         headers: {
           "x-auth-token": localStorage.getItem("jwtToken")
         }

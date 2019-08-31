@@ -35,7 +35,7 @@ export class Navigation extends Component {
     };
 
     axios
-      .post("http://localhost:6677/api/auth", loginInfo)
+      .post("https://watchful-rm-api.herokuapp.com/api/auth", loginInfo)
       .then(res => {
         console.log(res);
         const token = res.headers["x-auth-token"];
