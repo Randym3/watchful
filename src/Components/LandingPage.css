@@ -9,7 +9,6 @@ div.container {
   display: flex;
 }
 div.hook {
-  padding: 100px 50px;
   text-align: center;
   flex: 1;
   color: rgb(236, 236, 236);
@@ -40,7 +39,6 @@ div.hook {
     display: block !important;
   }
   div.container.details {
-    padding: 20px 20px;
     flex-direction: column-reverse;
   }
 }
