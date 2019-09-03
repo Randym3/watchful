@@ -23,6 +23,7 @@ nav {
   position: relative;
   font-size: 20px;
   margin-bottom: -85px;
+  z-index: 2;
 }
 
 .nav {
@@ -113,33 +114,64 @@ nav {
     transform: rotate(45deg) translate(-8px, -8px);
   }
 }
+div.modal-bg {
+  top: 0;
+  left: 0;
+  height: 100vh;
+  position: fixed;
+  width: 100%;
+  background-color: #00000081;
+  animation: fadeIn 250ms;
+  z-index: 1;
+}
 form.login-form,
 form.register-form {
   border-radius: 10px;
-  padding: 20px;
-  height: 250px;
-  width: 250px;
+  padding: 20px 10px;
+  width: 300px;
   background-color: white;
   text-align: center;
-  position: absolute;
-  right: -70px;
-}
-form.register-form {
-  height: 300px;
+  margin: 20vh auto;
+  animation: fadeIn 250ms;
+  position: relative;
 }
 
+form h3 {
+  margin-bottom: 20px;
+}
 form.login-form input,
 form.register-form input {
   display: block;
   font-size: 18px;
   padding: 10px 15px;
-  margin: 10px 0;
+  margin: 10px auto 20px auto;
+  text-align: center;
+  border: none;
+  border-bottom: 1px rgb(58, 58, 58) solid;
+}
+form.login-form input:focus,
+form.register-form input:focus {
+  outline: none;
+  box-shadow: 0 1px 1px rgb(51, 51, 51);
 }
 
 form.login-form button,
 form.register-form button {
   margin: 0 0;
 }
-li {
-  position: relative;
+i.fas.fa-window-close {
+  color: rgb(255, 80, 80);
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  font-size: 25px;
+}
+
+i.fas.fa-window-close:hover {
+  color: rgb(97, 96, 96) !important;
+  cursor: pointer;
+}
+
+i.fas.fa-window-close:active {
+  transform: scale(0.9);
 }

@@ -9,10 +9,14 @@ export class Watches extends Component {
   };
 
   getWatches = async () => {
-    const watchList = await axios.get(
-      " https://watchful-rm-api.herokuapp.com/api/watches"
-    );
-    this.setState({ watches: watchList.data });
+    try {
+      const watchList = await axios.get(
+        "https://watchful-rm-api.herokuapp.com/api/watches"
+      );
+      this.setState({ watches: watchList.data });
+    } catch (ex) {
+      console.log(Object.entries(ex));
+    }
   };
 
   componentDidMount() {

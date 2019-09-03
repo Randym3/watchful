@@ -1,14 +1,15 @@
 div.container {
+  position: relative;
   height: 100vh;
   background: linear-gradient(
     to right,
     #232526,
     #414345
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
   display: flex;
 }
 div.hook {
+  padding: 100px 50px;
   text-align: center;
   flex: 1;
   color: rgb(236, 236, 236);
@@ -18,7 +19,34 @@ div.hook {
 .hook h1 {
   margin-bottom: 20px;
 }
+
+@media only screen and (max-width: 1005px) {
+  div.image.mobile {
+    width: 100%;
+    filter: blur(4x);
+    -webkit-filter: blur(4px);
+    background-image: linear-gradient(to right, #232526, #4143455d),
+      url("../assets/RS87RxqZQxiYlPKziDRJ_Lifestyle_1_copy_b1dd8b6b-4d61-45ad-b274-24d801ea9a5a_1100x.jpg");
+  }
+  div.hook.mobile {
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    z-index: 1;
+  }
+  div.hook.details {
+    display: block !important;
+  }
+  div.container.details {
+    padding: 20px 20px;
+    flex-direction: column-reverse;
+  }
+}
+
 div.image {
+  display: flex;
   flex: 1.5;
   background-image: url("../assets/RS87RxqZQxiYlPKziDRJ_Lifestyle_1_copy_b1dd8b6b-4d61-45ad-b274-24d801ea9a5a_1100x.jpg");
   background-repeat: no-repeat;

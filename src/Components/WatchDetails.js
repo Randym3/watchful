@@ -15,7 +15,7 @@ export class WatchDetails extends Component {
     const { id } = this.props.match.params;
 
     axios
-      .get(` https://watchful-rm-api.herokuapp.com/api/watches/${id}`, {
+      .get(`https://watchful-rm-api.herokuapp.com/api/watches/${id}`, {
         headers: {
           "x-auth-token": localStorage.getItem("jwtToken")
         }
@@ -43,14 +43,17 @@ export class WatchDetails extends Component {
     } = this.state.watch;
     console.log(this.state.watch);
     return (
-      <div className="container">
+      <div className="container details">
         {this.state.forbidden ? (
-          <div className="hook" style={{ position: "fixed", width: "100%" }}>
+          <div
+            className="hook details"
+            style={{ position: "fixed", width: "100%" }}
+          >
             {" "}
             <h1>{this.state.errMessage}</h1>
           </div>
         ) : (
-          <div className="hook">
+          <div className="hook details">
             <h1>{title}</h1>
             <p>
               <i>{description}</i>
@@ -69,7 +72,9 @@ export class WatchDetails extends Component {
           className="image"
           style={{
             backgroundImage: `url(${image_path})`,
-            flex: "1",
+            backgroundSize: "contain",
+            flex: "1.5",
+            width: "100%",
             height: "70%",
             alignSelf: "center"
           }}

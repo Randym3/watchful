@@ -14,11 +14,12 @@ export class Navigation extends Component {
     registerName: "",
     registerMessage: ""
   };
-  toggleLoginMenu = e => {
-    this.setState({ showLogin: !this.state.showLogin });
+  openLogin = e => {
+    this.setState({ showLogin: true });
   };
-  toggleRegisterMenu = e => {
-    this.setState({ showRegister: !this.state.showRegister });
+
+  openRegister = e => {
+    this.setState({ showRegister: true });
   };
   handleHamburger = e => {
     this.setState({ showHamburger: !this.state.showHamburger });
@@ -37,7 +38,6 @@ export class Navigation extends Component {
     axios
       .post("https://watchful-rm-api.herokuapp.com/api/auth", loginInfo)
       .then(res => {
-        console.log(res);
         const token = res.headers["x-auth-token"];
         localStorage.setItem("jwtToken", token);
 
@@ -48,7 +48,6 @@ export class Navigation extends Component {
         });
       })
       .catch(err => {
-        console.log(err.response);
         this.setState({ loginMessage: err.response.data });
       });
     this.setState({ loginPassword: "" });
@@ -63,9 +62,8 @@ export class Navigation extends Component {
     };
 
     axios
-      .post("http://localhost:6677/api/users", registerInfo)
+      .post("https://watchful-rm-api.herokuapp.com/api/users", registerInfo)
       .then(res => {
-        console.log(res);
         const token = res.headers["x-auth-token"];
         localStorage.setItem("jwtToken", token);
 
@@ -77,18 +75,13 @@ export class Navigation extends Component {
         });
       })
       .catch(err => {
-        console.log(err.response);
         this.setState({ registerMessage: err.response.data });
       });
     this.setState({ registerPassword: "" });
   };
   render() {
     return (
-      <nav
-        className={`menu wow fadeInDown ${
-          this.state.showHamburger ? "change" : null
-        } `}
-      >
+      <nav className={`menu  ${this.state.showHamburger ? "change" : null} `}>
         <a
           className={`logo menu ${this.state.showHamburger ? "change" : null}`}
           href="/"
@@ -109,92 +102,141 @@ export class Navigation extends Component {
           <li>
             <p
               className="register"
-              onClick={this.toggleRegisterMenu}
+              onClick={this.openRegister}
               style={{ position: "relative" }}
             >
               Register
             </p>
             {this.state.showRegister ? (
-              <form className="register-form" onSubmit={this.onRegister}>
-                <h3>Register</h3>
-                <input
-                  name="registerName"
-                  value={this.state.registerName}
-                  type="text"
-                  placeholder="Name"
-                  onChange={this.onTextChange}
-                />
-                <input
-                  name="registerEmail"
-                  value={this.state.registerEmail}
-                  type="email"
-                  placeholder="Email"
-                  onChange={this.onTextChange}
-                />
-                <input
-                  name="registerPassword"
-                  value={this.state.registerPassword}
-                  type="password"
-                  placeholder="Password"
-                  onChange={this.onTextChange}
-                />
-                <button type="submit">Submit</button>
-                {this.state.registerMessage ? (
-                  <p
-                    style={{
-                      margin: "10px 0",
-                      fontFamily: "arial",
-                      fontWeight: "bold",
-                      fontSize: "17px",
-                      color: "dimgray"
+              <div
+                className="modal-bg"
+                onClick={e => {
+                  if (e.target.className === "modal-bg") {
+                    e.target.style.animation = "fadeOut 250ms";
+                    setTimeout(() => {
+                      this.setState({ showRegister: false });
+                    }, 250);
+                  }
+                }}
+              >
+                <form className="register-form" onSubmit={this.onRegister}>
+                  {" "}
+                  <i
+                    className="fas fa-window-close"
+                    onClick={e => {
+                      if (e.target.closest("div.modal-bg")) {
+                        e.target.closest("div.modal-bg").style.animation =
+                          "fadeOut 250ms";
+                        setTimeout(() => {
+                          this.setState({ showRegister: false });
+                        }, 250);
+                      }
                     }}
-                  >
-                    {this.state.registerMessage}
-                  </p>
-                ) : null}
-              </form>
+                  ></i>
+                  <h3>Register</h3>
+                  <label htmlFor="registerName">Name</label>
+                  <input
+                    name="registerName"
+                    value={this.state.registerName}
+                    type="text"
+                    onChange={this.onTextChange}
+                  />
+                  <label htmlFor="registerEmail">Email</label>
+                  <input
+                    name="registerEmail"
+                    value={this.state.registerEmail}
+                    type="email"
+                    onChange={this.onTextChange}
+                  />
+                  <label htmlFor="registerPassword">Password</label>
+                  <input
+                    name="registerPassword"
+                    value={this.state.registerPassword}
+                    type="password"
+                    onChange={this.onTextChange}
+                  />
+                  <button type="submit">Submit</button>
+                  {this.state.registerMessage ? (
+                    <p
+                      style={{
+                        margin: "10px 0",
+                        fontFamily: "arial",
+                        fontWeight: "bold",
+                        fontSize: "17px",
+                        color: "dimgray"
+                      }}
+                    >
+                      {this.state.registerMessage}
+                    </p>
+                  ) : null}
+                </form>
+              </div>
             ) : null}
           </li>
           <li>
             <p
               className="login"
-              onClick={this.toggleLoginMenu}
+              onClick={this.openLogin}
               style={{ position: "relative" }}
             >
               Login
             </p>
             {this.state.showLogin ? (
-              <form className="login-form" onSubmit={this.onLogin}>
-                <h3>Login</h3>
-                <input
-                  name="loginEmail"
-                  value={this.state.loginEmail}
-                  type="email"
-                  placeholder="Email"
-                  onChange={this.onTextChange}
-                />
-                <input
-                  name="loginPassword"
-                  value={this.state.loginPassword}
-                  type="password"
-                  placeholder="Password"
-                  onChange={this.onTextChange}
-                />
-                <button type="submit">Submit</button>
-                {this.state.loginMessage ? (
-                  <p
-                    style={{
-                      margin: "10px 0",
-                      fontFamily: "arial",
-                      fontWeight: "bold",
-                      fontSize: "17px",
-                      color: "dimgray"
+              <div
+                className="modal-bg"
+                onClick={e => {
+                  if (e.target.className === "modal-bg") {
+                    e.target.style.animation = "fadeOut 250ms";
+                    setTimeout(() => {
+                      this.setState({ showLogin: false });
+                    }, 250);
+                  }
+                }}
+              >
+                <form className="login-form" onSubmit={this.onLogin}>
+                  <i
+                    className="fas fa-window-close"
+                    onClick={e => {
+                      if (e.target.closest("div.modal-bg")) {
+                        e.target.closest("div.modal-bg").style.animation =
+                          "fadeOut 250ms";
+                        setTimeout(() => {
+                          this.setState({ showLogin: false });
+                        }, 250);
+                      }
                     }}
-                  >
-                    {this.state.loginMessage}
-                  </p>
-                ) : null}
-              </form>
+                  ></i>
+                  <h3>Login</h3>
+                  <label htmlFor="loginEmail">Email</label>
+                  <input
+                    name="loginEmail"
+                    value={this.state.loginEmail}
+                    type="email"
+                    onChange={this.onTextChange}
+                  />
+                  <label htmlFor="loginPassword">Password</label>
+                  <input
+                    name="loginPassword"
+                    value={this.state.loginPassword}
+                    type="password"
+                    onChange={this.onTextChange}
+                  />
+                  <button type="submit">Submit</button>
+                  {this.state.loginMessage ? (
+                    <p
+                      style={{
+                        margin: "10px 0",
+                        fontFamily: "arial",
+                        fontWeight: "bold",
+                        fontSize: "17px",
+                        color: "dimgray"
+                      }}
+                    >
+                      {this.state.loginMessage}
+                    </p>
+                  ) : null}
+                </form>
+              </div>
             ) : null}
           </li>
           <li>
