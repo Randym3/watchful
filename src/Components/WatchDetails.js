@@ -1,58 +1,26 @@
 import React, { Component } from "react";
-import axios from "axios";
+
+import { getWatchDetails } from "../actions/watchActions";
+import { connect } from "react-redux";
 import "./LandingPage.css";
 
 export class WatchDetails extends Component {
-  state = {
-    watch: {},
-    forbidden: false
-  };
-
   componentDidMount() {
-    this.getWatch();
+    this.props.getWatchDetails(this.props.match.params.id);
   }
-  getWatch = () => {
-    const { id } = this.props.match.params;
-
-    axios
-      .get(`https://watchful-rm-api.herokuapp.com/api/watches/${id}`, {
-        headers: {
-          "x-auth-token": localStorage.getItem("jwtToken")
-        }
-      })
-      .then(data => {
-        this.setState({ watch: data.data, forbidden: false, errMessage: "" });
-      })
-      .catch(err => {
-        console.log(err.response);
-
-        if (err.response.status === 401) {
-          this.setState({ forbidden: true, errMessage: err.response.data });
-        }
-      });
-  };
 
   render() {
-    console.log(this.state);
     const {
       title,
       description,
       image_path,
       price,
       quantity
-    } = this.state.watch;
-    console.log(this.state.watch);
+    } = this.props.details;
+
     return (
       <div className="container details">
-        {this.state.forbidden ? (
-          <div
-            className="hook details"
-            style={{ position: "fixed", width: "100%" }}
-          >
-            {" "}
-            <h1>{this.state.errMessage}</h1>
-          </div>
-        ) : (
+        {this.props.isAuthenticated ? (
           <div className="hook details">
             <h1>{title}</h1>
             <p>
@@ -65,6 +33,14 @@ export class WatchDetails extends Component {
             <button disabled style={{ cursor: "not-allowed" }}>
               ADD TO CART
             </button>
+          </div>
+        ) : (
+          <div
+            className="hook details"
+            style={{ position: "fixed", width: "100%" }}
+          >
+            {" "}
+            <h1>Access Denied</h1>
           </div>
         )}
 
@@ -84,4 +60,12 @@ export class WatchDetails extends Component {
   }
 }
 
-export default WatchDetails;
+const mapStateToProps = state => ({
+  details: state.watches.watchDetails,
+  isAuthenticated: state.user.isAuthenticated
+});
+
+export default connect(
+  mapStateToProps,
+  { getWatchDetails }
+)(WatchDetails);

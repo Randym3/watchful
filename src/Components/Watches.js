@@ -1,29 +1,15 @@
 import React, { Component } from "react";
-import axios from "axios";
 import Watch from "./Watch";
 import "./Watches.css";
+import { connect } from "react-redux";
+import { getWatches } from "../actions/watchActions";
 
 export class Watches extends Component {
-  state = {
-    watches: []
-  };
-
-  getWatches = async () => {
-    try {
-      const watchList = await axios.get(
-        "https://watchful-rm-api.herokuapp.com/api/watches"
-      );
-      this.setState({ watches: watchList.data });
-    } catch (ex) {
-      console.log(Object.entries(ex));
-    }
-  };
-
-  componentDidMount() {
-    this.getWatches();
+  UNSAFE_componentWillMount() {
+    this.props.getWatches();
   }
   render() {
-    const { watches } = this.state;
+    const { watches } = this.props;
 
     return (
       <div style={{ padding: "50px" }}>
@@ -37,8 +23,8 @@ export class Watches extends Component {
           </p>
         </div>
         <div className="container-row">
-          {watches.map((cur, ind) => {
-            return <Watch data={cur} key={ind} />;
+          {watches.map(cur => {
+            return <Watch data={cur} key={cur.id} />;
           })}
         </div>
       </div>
@@ -46,4 +32,11 @@ export class Watches extends Component {
   }
 }
 
-export default Watches;
+const mapStateToProps = state => ({
+  watches: state.watches.watches
+});
+
+export default connect(
+  mapStateToProps,
+  { getWatches }
+)(Watches);

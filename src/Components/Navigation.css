@@ -41,8 +41,8 @@ nav {
 }
 
 .nav li a,
-.nav li p.login,
-.nav li p.register {
+.nav li p,
+.nav li p {
   text-decoration: none;
   color: rgb(255, 255, 255);
   text-shadow: 1px 1px 2px rgb(199, 199, 199);
