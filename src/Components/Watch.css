@@ -1,5 +1,6 @@
 div.card {
   transition: 250ms all ease-in-out;
+  text-align: center;
 }
 div.card:hover {
   transform: scale(1.2);

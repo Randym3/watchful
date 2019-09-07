@@ -22,8 +22,8 @@ div.hook {
 @media only screen and (max-width: 1005px) {
   div.image.mobile {
     width: 100%;
-    filter: blur(4x);
-    -webkit-filter: blur(4px);
+    filter: blur(3px);
+    -webkit-filter: blur(3px);
     background-image: linear-gradient(to right, #232526, #4143455d),
       url("../assets/RS87RxqZQxiYlPKziDRJ_Lifestyle_1_copy_b1dd8b6b-4d61-45ad-b274-24d801ea9a5a_1100x.jpg");
   }
@@ -35,11 +35,12 @@ div.hook {
     right: 10%;
     z-index: 1;
   }
-  div.hook.details {
-    display: block !important;
-  }
+
   div.container.details {
     flex-direction: column-reverse;
+  }
+  div.hook.details {
+    width: 90%;
   }
 }
 

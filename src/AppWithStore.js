@@ -5,15 +5,33 @@ import Navigation from "./Components/Navigation";
 import LandingPage from "./Components/LandingPage";
 import Watches from "./Components/Watches";
 import WatchDetails from "./Components/WatchDetails";
+import Loading from "./Components/pages/Loading";
+import UserProfile from "./Components/UserProfile";
 
 import { connect } from "react-redux";
-import { getCurrentUser } from "./actions/userActions";
 
 export class AppWithStore extends Component {
   render() {
-    this.props.getCurrentUser();
     return (
       <div>
+        {this.props.isLoading ? (
+          <div
+            style={{
+              display: "flex",
+              position: "fixed",
+              color: "white",
+              zIndex: "100",
+              height: "100vh",
+              width: "100vw",
+              backgroundColor: "#00000081",
+              alignItems: "center",
+              top: "0",
+              left: "0"
+            }}
+          >
+            <Loading />
+          </div>
+        ) : null}
         <BrowserRouter>
           <Navigation />
           <Switch>
@@ -28,6 +46,7 @@ export class AppWithStore extends Component {
               )}
             />
             <Route exact path="/watches/:id" component={WatchDetails} />
+            <Route exact path="/profile" component={UserProfile} />
           </Switch>
         </BrowserRouter>
       </div>
@@ -35,7 +54,11 @@ export class AppWithStore extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  isLoading: state.loading.isLoading
+});
+
 export default connect(
-  null,
-  { getCurrentUser }
+  mapStateToProps,
+  null
 )(AppWithStore);

@@ -19,42 +19,51 @@ export class WatchDetails extends Component {
     } = this.props.details;
 
     return (
-      <div className="container details">
+      <div>
         {this.props.isAuthenticated ? (
-          <div className="hook details">
-            <h1>{title}</h1>
-            <p>
-              <i>{description}</i>
-            </p>
-            <p style={{ fontSize: "20px", margin: "20px 0" }}>
-              <i>Stock: {quantity}</i>
-            </p>
-            <h2 style={{ marginTop: "20px" }}>$ {price}</h2>
-            <button disabled style={{ cursor: "not-allowed" }}>
-              ADD TO CART
-            </button>
+          <div className="container details">
+            <div className="hook details">
+              <h1>{title}</h1>
+              <p>
+                <i>{description}</i>
+              </p>
+              <p style={{ fontSize: "20px", margin: "20px 0" }}>
+                <i>Stock: {quantity}</i>
+              </p>
+              <h2 style={{ marginTop: "20px" }}>$ {price}</h2>
+              <button disabled style={{ cursor: "not-allowed" }}>
+                ADD TO CART
+              </button>
+            </div>
+            <div
+              className="image"
+              style={{
+                backgroundImage: `url(${image_path})`,
+                backgroundSize: "contain",
+                flex: "1.5",
+                width: "100%",
+                height: "80%",
+                alignSelf: "center"
+              }}
+            ></div>
           </div>
         ) : (
           <div
-            className="hook details"
-            style={{ position: "fixed", width: "100%" }}
+            style={{
+              width: "100%",
+              height: "100vh",
+              display: "flex",
+              backgroundImage: " linear-gradient( to right,#232526,#414345)",
+              color: "white",
+              textAlign: "center",
+              alignItems: "center",
+              justifyContent: "center"
+            }}
           >
             {" "}
             <h1>Access Denied</h1>
           </div>
         )}
-
-        <div
-          className="image"
-          style={{
-            backgroundImage: `url(${image_path})`,
-            backgroundSize: "contain",
-            flex: "1.5",
-            width: "100%",
-            height: "100%",
-            alignSelf: "center"
-          }}
-        ></div>
       </div>
     );
   }

@@ -10,6 +10,10 @@ export class Watch extends Component {
         <Link to={`/watches/${watch.id}`}>
           <img alt={watch.description} src={watch.image_path} height="300" />
         </Link>
+        <h2>{watch.title}</h2>
+        <h3>
+          $ <i>{` ${watch.price}`}</i>
+        </h3>
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import { GET_WATCH, GET_WATCHES } from "./types";
+import { GET_WATCH, GET_WATCHES, LOADED_API, LOADING_API } from "./types";
 import axios from "axios";
 
 const options = {
@@ -7,6 +7,7 @@ const options = {
   }
 };
 export const getWatches = () => async dispatch => {
+  dispatch({ type: LOADING_API });
   try {
     const res = await axios.get(
       "https://watchful-rm-api.herokuapp.com/api/watches"
@@ -18,9 +19,11 @@ export const getWatches = () => async dispatch => {
   } catch (ex) {
     console.log(Object.entries(ex));
   }
+  dispatch({ type: LOADED_API });
 };
 
 export const getWatchDetails = id => async dispatch => {
+  dispatch({ type: LOADING_API });
   try {
     const res = await axios.get(
       `https://watchful-rm-api.herokuapp.com/api/watches/${id}`,
@@ -34,4 +37,5 @@ export const getWatchDetails = id => async dispatch => {
   } catch (ex) {
     console.log(ex);
   }
+  dispatch({ type: LOADED_API });
 };

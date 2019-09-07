@@ -35,11 +35,6 @@ export class Navigation extends Component {
       password: this.state.loginPassword
     };
     this.props.loginUser(loginInfo);
-
-    this.setState({
-      loginEmail: "",
-      loginPassword: ""
-    });
   };
   onRegister = e => {
     e.preventDefault();
@@ -51,11 +46,6 @@ export class Navigation extends Component {
     };
 
     this.props.registerUser(registerInfo);
-    this.setState({
-      registerEmail: "",
-      registerPassword: "",
-      registerName: ""
-    });
   };
   render() {
     return (
@@ -84,11 +74,12 @@ export class Navigation extends Component {
               <li stlye={{ color: "white" }}>
                 <p style={{ cursor: "default" }}>
                   Hello,{" "}
-                  <span
+                  <Link
+                    to="/profile"
                     style={{ cursor: "pointer", textDecoration: "underline" }}
                   >
                     {this.props.currentUser.name}{" "}
-                  </span>
+                  </Link>
                 </p>
               </li>
               <li>
@@ -144,6 +135,7 @@ export class Navigation extends Component {
                         name="registerName"
                         value={this.state.registerName}
                         type="text"
+                        autoComplete="name"
                         onChange={this.onTextChange}
                       />
                       <label htmlFor="registerEmail">Email</label>
@@ -151,6 +143,7 @@ export class Navigation extends Component {
                         name="registerEmail"
                         value={this.state.registerEmail}
                         type="email"
+                        autoComplete="email"
                         onChange={this.onTextChange}
                       />
                       <label htmlFor="registerPassword">Password</label>
@@ -158,20 +151,22 @@ export class Navigation extends Component {
                         name="registerPassword"
                         value={this.state.registerPassword}
                         type="password"
+                        autoComplete="current-password"
                         onChange={this.onTextChange}
                       />
                       <button type="submit">Submit</button>
-                      {this.state.registerMessage ? (
+                      {this.props.registerError ? (
                         <p
                           style={{
                             margin: "10px 0",
-                            fontFamily: "arial",
-                            fontWeight: "bold",
-                            fontSize: "17px",
-                            color: "dimgray"
+                            fontFamily: "sans-serif",
+                            textShadow: "none",
+                            fontSize: "16px",
+                            color: "#C91D2E"
                           }}
                         >
-                          {this.state.registerMessage}
+                          <i className="fas fa-exclamation-triangle"></i>{" "}
+                          {this.props.registerError}
                         </p>
                       ) : null}
                     </form>
@@ -219,6 +214,7 @@ export class Navigation extends Component {
                         name="loginEmail"
                         value={this.state.loginEmail}
                         type="email"
+                        autoComplete="email"
                         onChange={this.onTextChange}
                       />
                       <label htmlFor="loginPassword">Password</label>
@@ -226,20 +222,22 @@ export class Navigation extends Component {
                         name="loginPassword"
                         value={this.state.loginPassword}
                         type="password"
+                        autoComplete="current-password"
                         onChange={this.onTextChange}
                       />
                       <button type="submit">Submit</button>
-                      {this.state.loginMessage ? (
+                      {this.props.loginError ? (
                         <p
                           style={{
                             margin: "10px 0",
-                            fontFamily: "arial",
-                            fontWeight: "bold",
-                            fontSize: "17px",
-                            color: "dimgray"
+                            fontFamily: "sans-serif",
+                            textShadow: "none",
+                            fontSize: "16px",
+                            color: "#C91D2E"
                           }}
                         >
-                          {this.state.loginMessage}
+                          <i className="fas fa-exclamation-triangle"></i>{" "}
+                          {this.props.loginError}
                         </p>
                       ) : null}
                     </form>
@@ -265,7 +263,9 @@ export class Navigation extends Component {
 
 const mapStateToProps = state => ({
   currentUser: state.user.userDetails,
-  isAuthenticated: state.user.isAuthenticated
+  isAuthenticated: state.user.isAuthenticated,
+  registerError: state.user.registerError,
+  loginError: state.user.loginError
 });
 export default connect(
   mapStateToProps,

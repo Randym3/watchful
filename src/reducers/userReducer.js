@@ -4,12 +4,18 @@ import {
   DELETE_USER,
   EDIT_USER,
   GET_CURRENT_USER,
-  SIGNOUT_USER
+  SIGNOUT_USER,
+  LOGIN_ERROR,
+  REGISTER_ERROR,
+  EDIT_ERROR
 } from "../actions/types";
 
 const initialState = {
   isAuthenticated: false,
-  userDetails: {}
+  userDetails: {},
+  registerError: "",
+  loginError: "",
+  editError: ""
 };
 
 export default function(state = initialState, action) {
@@ -20,7 +26,21 @@ export default function(state = initialState, action) {
         userDetails: action.payload,
         isAuthenticated: true
       };
-
+    case LOGIN_ERROR:
+      return {
+        ...state,
+        loginError: action.payload
+      };
+    case REGISTER_ERROR:
+      return {
+        ...state,
+        registerError: action.payload
+      };
+    case EDIT_ERROR:
+      return {
+        ...state,
+        editError: action.payload
+      };
     case CREATE_USER:
       return {
         ...state,
