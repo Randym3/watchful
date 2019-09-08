@@ -1,6 +1,6 @@
 nav.slideInNav {
   flex-direction: column;
-  position: absolute;
+  position: fixed;
 
   color: white;
   background-color: rgb(63, 63, 63);
