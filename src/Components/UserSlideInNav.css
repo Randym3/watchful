@@ -1,0 +1,36 @@
+nav.slideInNav {
+  flex-direction: column;
+  position: absolute;
+
+  color: white;
+  background-color: rgb(63, 63, 63);
+  right: 0;
+  height: 100%;
+  width: 300px;
+
+  transform: translateX(100%);
+  -webkit-transition: -webkit-transform 0.55s cubic-bezier(0.77, 0, 0.175, 1);
+  transition: -webkit-transform 0.55s cubic-bezier(0.77, 0, 0.175, 1);
+  transition: transform 0.55s cubic-bezier(0.77, 0, 0.175, 1);
+  transition: transform 0.55s cubic-bezier(0.77, 0, 0.175, 1),
+    -webkit-transform 0.55s cubic-bezier(0.77, 0, 0.175, 1);
+}
+nav.slideInNav i {
+  color: rgb(255, 217, 202);
+}
+nav.slideInNav h4 {
+  margin: 40px auto 0 auto;
+}
+nav.slideInNav p {
+  padding: 15px;
+}
+nav.slideInNav ul {
+  list-style: none;
+}
+
+nav.slideInNav ul li > a {
+  display: block;
+  padding: 15px;
+  color: white;
+  text-decoration: none;
+}

@@ -7,6 +7,7 @@ import Watches from "./Components/Watches";
 import WatchDetails from "./Components/WatchDetails";
 import Loading from "./Components/pages/Loading";
 import UserProfile from "./Components/UserProfile";
+import NotFound from "./Components/pages/NotFound";
 
 import { connect } from "react-redux";
 
@@ -47,6 +48,7 @@ export class AppWithStore extends Component {
             />
             <Route exact path="/watches/:id" component={WatchDetails} />
             <Route exact path="/profile" component={UserProfile} />
+            <Route component={NotFound} />
           </Switch>
         </BrowserRouter>
       </div>

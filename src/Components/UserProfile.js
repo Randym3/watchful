@@ -57,7 +57,10 @@ export class UserProfile extends Component {
         {this.props.isAuthenticated ? (
           <form className="edit-form" onSubmit={this.onEdit}>
             {" "}
-            <h3>Your Info </h3>
+            <h3>
+              {" "}
+              <i className="fas fa-user-edit"></i> Your Info
+            </h3>
             <label htmlFor="editName">Name</label>
             <input
               name="editName"
@@ -79,7 +82,20 @@ export class UserProfile extends Component {
               type="password-input"
               onChange={this.onTextChange}
             />
-            <button type="submit">Submit</button>
+            <h3>
+              {" "}
+              <i
+                style={{
+                  padding: "5px 10px 5px 0",
+                  color: "red",
+                  cursor: "pointer",
+                  fontSize: "20px"
+                }}
+                className="fas fa-trash-alt"
+              ></i>{" "}
+              Delete Account
+            </h3>
+            <button type="submit">Edit</button>
             {this.props.editError ? (
               <p
                 style={{

@@ -3,8 +3,8 @@ div.container {
   height: 100vh;
   background: linear-gradient(
     to right,
-    #232526,
-    #414345
+    #2e2f30,
+    #5d6063
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   display: flex;
 }
