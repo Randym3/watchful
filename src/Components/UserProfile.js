@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { editUser } from "../actions/userActions";
+import { editUser, deleteUser } from "../actions/userActions";
 
 import "./UserProfile.css";
 
@@ -38,6 +38,14 @@ export class UserProfile extends Component {
 
   onTextChange = e => {
     this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onDelete = () => {
+    if (window.confirm("Are you sure you want to delete your account?")) {
+      this.props.deleteUser();
+    } else {
+      return;
+    }
   };
 
   onEdit = e => {
@@ -85,6 +93,7 @@ export class UserProfile extends Component {
             <h3>
               {" "}
               <i
+                onClick={this.onDelete}
                 style={{
                   padding: "5px 10px 5px 0",
                   color: "red",
@@ -137,5 +146,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { editUser }
+  { editUser, deleteUser }
 )(UserProfile);

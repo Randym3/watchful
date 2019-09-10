@@ -49,13 +49,12 @@ export const registerUser = registerInfo => async dispatch => {
     const token = res.headers["x-auth-token"];
     localStorage.setItem("jwtToken", token);
     dispatch({ type: CREATE_USER, payload: res.data });
-    dispatch({ type: LOADED_API });
 
     window.location.href = window.location.pathname;
   } catch (ex) {
     dispatch({ type: REGISTER_ERROR, payload: ex.response.data });
-    dispatch({ type: LOADED_API });
   }
+  dispatch({ type: LOADED_API });
 };
 
 export const getCurrentUser = () => async dispatch => {
@@ -94,10 +93,31 @@ export const editUser = editInfo => async dispatch => {
     );
 
     dispatch({ type: EDIT_USER, payload: res.data });
-    dispatch({ type: LOADED_API });
   } catch (ex) {
     console.log(ex);
     dispatch({ type: EDIT_ERROR, payload: ex.response.data });
-    dispatch({ type: LOADED_API });
   }
+  dispatch({ type: LOADED_API });
+};
+
+export const deleteUser = () => async dispatch => {
+  dispatch({ type: LOADING_API });
+  try {
+    const token = localStorage.getItem("jwtToken");
+    const deleted = await axios.delete(
+      "https://watchful-rm-api.herokuapp.com/api/users/me",
+      {
+        headers: {
+          "x-auth-token": token
+        }
+      }
+    );
+    console.log(deleted);
+    localStorage.removeItem("jwtToken");
+    dispatch({ type: DELETE_USER, payload: {} });
+    window.location.href = window.location.href = "/";
+  } catch (ex) {
+    dispatch({ type: EDIT_ERROR, payload: ex.response.data });
+  }
+  dispatch({ type: LOADED_API });
 };

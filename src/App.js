@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Provider } from "react-redux";
 import AppWithStore from "./AppWithStore";
 import store from "./store";
+import "./App.css";
 
 import { getCurrentUser } from "./actions/userActions";
 

@@ -15,7 +15,7 @@ export default function NotFound() {
       }}
     >
       <div>
-        <img src={notFound} alt="404 page not found" height="200" />{" "}
+        <img src={notFound} alt="404 page not found" height="180" />{" "}
       </div>
       <h2>Page not found</h2>
       <p>
