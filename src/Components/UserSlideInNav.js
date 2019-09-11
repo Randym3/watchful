@@ -40,12 +40,7 @@ export class UserSlideInNav extends Component {
               <i className="fas fa-user-edit"></i> Edit Info{" "}
             </Link>
           </li>
-          <li>
-            <Link to="/purchases" onClick={this.onToggle}>
-              {" "}
-              <i className="fas fa-shopping-bag"></i> Purchases{" "}
-            </Link>
-          </li>
+
           <li>
             <Link to="/products-admin" onClick={this.onToggle}>
               {" "}

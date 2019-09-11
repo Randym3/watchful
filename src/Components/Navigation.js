@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Navigation.css";
 import { connect } from "react-redux";
 import { loginUser, registerUser, signoutUser } from "../actions/userActions";
-import UserSlideInNav from "./UserSlideInNav";
+// import UserSlideInNav from "./UserSlideInNav";
 
 export class Navigation extends Component {
   state = {
@@ -24,12 +24,12 @@ export class Navigation extends Component {
       showLogin: false,
       showRegister: false
     });
-    let nav;
-    if (e.target.closest("nav").nextElementSibling.className === "slideInNav") {
-      nav = e.target.closest("nav").nextElementSibling;
-      nav.style.transform = "";
-      nav.style.webKittransform = "";
-    } else return;
+    // let nav;
+    // if (e.target.closest("nav").nextElementSibling.className === "slideInNav") {
+    //   nav = e.target.closest("nav").nextElementSibling;
+    //   nav.style.transform = "";
+    //   nav.style.webKittransform = "";
+    // } else return;
   };
 
   onUserToggle = e => {
@@ -38,12 +38,12 @@ export class Navigation extends Component {
       showLogin: false,
       showRegister: false
     });
-    let nav;
-    if (e.target.closest("nav").nextElementSibling.className === "slideInNav") {
-      nav = e.target.closest("nav").nextElementSibling;
-      nav.style.transform = "translateX(0%)";
-      nav.style.webKittransform = "translateX(0%)";
-    } else return;
+    // let nav;
+    // if (e.target.closest("nav").nextElementSibling.className === "slideInNav") {
+    //   nav = e.target.closest("nav").nextElementSibling;
+    //   nav.style.transform = "translateX(0%)";
+    //   nav.style.webKittransform = "translateX(0%)";
+    // } else return;
   };
 
   openLogin = e => {
@@ -92,30 +92,35 @@ export class Navigation extends Component {
             <i className="far fa-clock"></i> <h3>Watchful</h3>
           </Link>
 
-          <ul
+          {/* <ul
             className={`nav  nav-1 menu ${
               this.state.showHamburger ? "change" : null
             }`}
-          ></ul>
+          ></ul> */}
           <ul
             className={`nav  nav-2 menu ${
               this.state.showHamburger ? "change" : null
             }`}
           >
-            {/* The follow  ternary diplays users name which links to profile if user IS logged in, or "register" and "login" if user is NOT logged in*/}
-
             {this.props.isAuthenticated ? (
               <React.Fragment>
                 <li stlye={{ color: "white" }}>
                   <p style={{ cursor: "default" }}>
-                    Hello,{" "}
-                    <span
-                      onClick={this.onUserToggle}
-                      style={{ cursor: "pointer", textDecoration: "underline" }}
-                    >
-                      {this.props.currentUser.name}{" "}
-                    </span>
+                    Hello, {this.props.currentUser.name}{" "}
                   </p>
+                </li>
+                <li>
+                  {" "}
+                  <Link to="/profile" onClick={this.onPageChange}>
+                    {" "}
+                    <i className="fas fa-user-edit"></i> Edit Info{" "}
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/products-admin" onClick={this.onPageChange}>
+                    {" "}
+                    <i className="fas fa-user-lock"></i> View/Edit Products{" "}
+                  </Link>
                 </li>
                 <li>
                   {" "}
@@ -297,7 +302,7 @@ export class Navigation extends Component {
             <div className="bar3"></div>
           </div>
         </nav>
-        <UserSlideInNav />
+        {/* <UserSlideInNav /> */}
       </React.Fragment>
     );
   }

@@ -4,12 +4,15 @@ import {
   CREATE_WATCH_ADMIN,
   EDIT_WATCH_ADMIN,
   DELETE_WATCH_ADMIN,
-  EDIT_ERROR
+  EDIT_ERROR,
+  CREATE_ERROR,
+  CLEAR_ERRORS
 } from "../actions/types";
 const initialState = {
   watches: [],
   watchDetails: {},
-  editError: ""
+  editError: "",
+  createError: ""
 };
 
 export default function(state = initialState, action) {
@@ -36,10 +39,28 @@ export default function(state = initialState, action) {
         ...state,
         watchDetails: action.payload
       };
+    case CREATE_WATCH_ADMIN:
+      return {
+        ...state,
+        watches: [action.payload, ...state.watches]
+      };
     case EDIT_ERROR:
       return {
         ...state,
         editError: action.payload
+      };
+
+    case CREATE_ERROR:
+      return {
+        ...state,
+        createError: action.payload
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        editError: "",
+        createError: ""
       };
 
     default:

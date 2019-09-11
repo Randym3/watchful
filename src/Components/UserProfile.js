@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { editUser, deleteUser } from "../actions/userActions";
+import AccessDenied from "./pages/AccessDenied";
 
 import "./UserProfile.css";
 
@@ -14,6 +15,7 @@ export class UserProfile extends Component {
     };
   }
   componentDidMount() {
+    window.scroll(0, 0);
     const name = this.props.currentUser.name ? this.props.currentUser.name : "";
     const email = this.props.currentUser.email
       ? this.props.currentUser.email
@@ -64,7 +66,23 @@ export class UserProfile extends Component {
       <div className="container">
         {this.props.isAuthenticated ? (
           <form className="edit-form" onSubmit={this.onEdit}>
-            {" "}
+            <i
+              className="fas fa-long-arrow-alt-left"
+              style={{
+                cursor: "pointer",
+                position: "absolute",
+                left: "2%",
+                top: "12%",
+                padding: "0 10px",
+                fontSize: "45px",
+                color: "white",
+                backgroundColor: "coral",
+                borderRadius: "1px",
+                textShadow: "0 2px 2px black",
+                boxShadow: "0 2px 2px black"
+              }}
+              onClick={() => this.props.history.push("/")}
+            ></i>{" "}
             <h3>
               {" "}
               <i className="fas fa-user-edit"></i> Your Info
@@ -87,7 +105,8 @@ export class UserProfile extends Component {
             <input
               name="editPassword"
               value={this.state.editPassword}
-              type="password-input"
+              type="password"
+              autoComplete="on"
               onChange={this.onTextChange}
             />
             <h3>
@@ -121,17 +140,7 @@ export class UserProfile extends Component {
             ) : null}
           </form>
         ) : (
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              color: "white",
-              alignItems: "center",
-              textAlign: "center"
-            }}
-          >
-            <h1 style={{ width: "100%" }}>Access denied, please login</h1>
-          </div>
+          <AccessDenied />
         )}
       </div>
     );

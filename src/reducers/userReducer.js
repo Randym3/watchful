@@ -7,7 +7,8 @@ import {
   SIGNOUT_USER,
   LOGIN_ERROR,
   REGISTER_ERROR,
-  EDIT_ERROR
+  EDIT_ERROR,
+  CLEAR_ERRORS
 } from "../actions/types";
 
 const initialState = {
@@ -73,7 +74,13 @@ export default function(state = initialState, action) {
         userDetails: action.payload,
         isAuthenticated: false
       };
-
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        registerError: "",
+        editError: "",
+        loginError: ""
+      };
     default:
       return state;
   }

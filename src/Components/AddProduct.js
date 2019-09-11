@@ -1,52 +1,39 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getWatchDetails } from "../actions/watchActions";
-import { editWatch } from "../actions/adminActions";
+
+import { createWatch } from "../actions/adminActions";
 import AccessDenied from "./pages/AccessDenied";
 
-export class EditProduct extends Component {
+export class AddProduct extends Component {
   state = {
-    editTitle: "",
-    editDescription: "",
-    editQuantity: Number(),
-    editPrice: Number(),
-    editImagePath: ""
+    newTitle: "",
+    newDescription: "",
+    newQuantity: Number(),
+    newPrice: Number(),
+    newImagePath: ""
   };
   componentDidMount() {
-    this.props.getWatchDetails(this.props.match.params.id);
     window.scrollTo(0, 0);
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    this.setState({
-      editTitle: nextProps.watchDetails.title || "",
-      editDescription: nextProps.watchDetails.description || "",
-      editQuantity: nextProps.watchDetails.quantity || Number(),
-      editPrice: nextProps.watchDetails.price || Number(),
-      editImagePath: nextProps.watchDetails.image_path || ""
-    });
-  }
   onTextChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onEdit = e => {
+  onCreateProduct = e => {
     e.preventDefault();
 
-    const editInfo = {
-      title: this.state.editTitle,
-      description: this.state.editDescription,
-      quantity: this.state.editQuantity,
-      price: this.state.editPrice,
-      image_path: this.state.editImagePath
+    const newInfo = {
+      title: this.state.newTitle,
+      description: this.state.newDescription,
+      quantity: this.state.newQuantity,
+      price: this.state.newPrice,
+      image_path: this.state.newImagePath
     };
-    this.props.editWatch(this.props.match.params.id, editInfo);
+    this.props.createWatch(newInfo, this.props.history);
   };
 
   render() {
-    console.log(this.props);
-    const watch = this.props.watchDetails;
-
     return (
       <div>
         {this.props.isAdmin ? (
@@ -56,8 +43,8 @@ export class EditProduct extends Component {
           >
             <form
               style={{ position: "relative" }}
-              className="edit-form"
-              onSubmit={this.onEdit}
+              className="create-form"
+              onSubmit={this.onCreateProduct}
             >
               <i
                 className="fas fa-long-arrow-alt-left"
@@ -76,50 +63,49 @@ export class EditProduct extends Component {
                 }}
                 onClick={() => this.props.history.push("/products-admin")}
               ></i>{" "}
-              <h3>
-                Product ID: <br /> {watch.id}
-              </h3>
-              <label htmlFor="editTitle">Product Name</label>
+              <h3>Create New Watch</h3>
+              <label htmlFor="newTitle">Product Name</label>
               <input
-                name="editTitle"
-                value={this.state.editTitle}
+                name="newTitle"
+                value={this.state.newTitle}
                 type="text"
                 onChange={this.onTextChange}
               />
-              <label htmlFor="editPrice">Price</label>
+              <label htmlFor="newPrice">Price</label>
               <input
-                name="editPrice"
-                value={this.state.editPrice}
+                name="newPrice"
+                value={this.state.newPrice}
                 type="number"
                 maxLength="99999"
                 step=".01"
                 onChange={this.onTextChange}
               />
-              <label htmlFor="editDescription">Description</label>
+              <label htmlFor="newDescription">Description</label>
               <input
-                name="editDescription"
-                value={this.state.editDescription}
+                name="newDescription"
+                value={this.state.newDescription}
                 type="text"
                 onChange={this.onTextChange}
               />
-              <label htmlFor="editQuantity">Quantity</label>
+              <label htmlFor="newQuantity">Quantity</label>
               <input
-                name="editQuantity"
-                value={this.state.editQuantity}
+                name="newQuantity"
+                value={this.state.newQuantity}
                 type="number"
+                min="1"
                 max="99999"
                 step="1"
                 onChange={this.onTextChange}
               />
-              <label htmlFor="editImagePath">Image URL</label>
+              <label htmlFor="newImagePath">Image URL</label>
               <input
-                name="editImagePath"
-                value={this.state.editImagePath}
+                name="newImagePath"
+                value={this.state.newImagePath}
                 type="text"
                 onChange={this.onTextChange}
               />
-              <button type="submit">Edit</button>
-              {this.props.editError ? (
+              <button type="submit">Add</button>
+              {this.props.createError ? (
                 <p
                   style={{
                     margin: "10px 0",
@@ -130,7 +116,7 @@ export class EditProduct extends Component {
                   }}
                 >
                   <i className="fas fa-exclamation-triangle"></i>{" "}
-                  {this.props.editError}
+                  {this.props.createError}
                 </p>
               ) : null}
             </form>
@@ -144,12 +130,11 @@ export class EditProduct extends Component {
 }
 
 const mapStateToProps = state => ({
-  watchDetails: state.watches.watchDetails,
-  editError: state.watches.editError,
+  createError: state.watches.createError,
   isAdmin: state.user.userDetails.isadmin
 });
 
 export default connect(
   mapStateToProps,
-  { getWatchDetails, editWatch }
-)(EditProduct);
+  { createWatch }
+)(AddProduct);

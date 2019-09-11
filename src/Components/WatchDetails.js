@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-
+import AccessDenied from "./pages/AccessDenied";
 import { getWatchDetails } from "../actions/watchActions";
 import { connect } from "react-redux";
 import "./LandingPage.css";
+import noImage from "../assets/noimage.jpg";
 
 export class WatchDetails extends Component {
   componentDidMount() {
     this.props.getWatchDetails(this.props.match.params.id);
+    window.scrollTo(0, 0);
   }
 
   render() {
@@ -38,31 +40,17 @@ export class WatchDetails extends Component {
             <div
               className="image"
               style={{
-                backgroundImage: `url(${image_path})`,
+                backgroundImage: `url(${image_path ? image_path : noImage})`,
                 backgroundSize: "contain",
                 flex: "1.5",
-                width: "100%",
-                height: "80%",
+                width: `${image_path ? "100%" : "50%"}`,
+                height: `${image_path ? "80%" : "50%"}`,
                 alignSelf: "center"
               }}
             ></div>
           </div>
         ) : (
-          <div
-            style={{
-              width: "100%",
-              height: "100vh",
-              display: "flex",
-              backgroundImage: " linear-gradient( to right,#232526,#414345)",
-              color: "white",
-              textAlign: "center",
-              alignItems: "center",
-              justifyContent: "center"
-            }}
-          >
-            {" "}
-            <h1>Access Denied</h1>
-          </div>
+          <AccessDenied />
         )}
       </div>
     );

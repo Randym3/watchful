@@ -12,7 +12,7 @@ export class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <AppWithStore />
+        <AppWithStore onUpdate={() => window.scrollTo(0, 0)} />
       </Provider>
     );
   }
